@@ -1,38 +1,31 @@
 package com.example.demo;
 
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
+import com.example.demo.service.DataProcessor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
+import java.util.Date;
 
 @SpringBootApplication
-@RestController
-public class DemoApplication {
+public class DemoApplication implements ApplicationRunner {
+
+    @Autowired
+    private DataProcessor dataProcessor;
+
 
     public static void main(String[] args) {
         SpringApplication.run(DemoApplication.class, args);
     }
 
+    @Override
+    public void run(ApplicationArguments args) throws Exception {
+        System.out.println(System.currentTimeMillis());
+        dataProcessor.getData("oil").forEach(data -> {
+            System.out.println(new Date(data.time()).toString());
+        });
 
-    @GetMapping("/btc")
-    public String getResult() throws IOException {
-        OkHttpClient client = new OkHttpClient();
-
-        Request request = new Request.Builder()
-                .url("https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-summary?symbol=AMRN&region=US")
-                .get()
-                .addHeader("x-rapidapi-key", "8e044615ebmsh679578c3b9fa560p16a525jsn89d6641e7c31")
-                .addHeader("x-rapidapi-host", "apidojo-yahoo-finance-v1.p.rapidapi.com")
-                .build();
-
-        Response response = client.newCall(request).execute();
-
-        return response.toString();
     }
-
 }
