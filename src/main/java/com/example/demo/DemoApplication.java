@@ -7,8 +7,6 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.util.Date;
-
 @SpringBootApplication
 public class DemoApplication implements ApplicationRunner {
 
@@ -23,9 +21,5 @@ public class DemoApplication implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         System.out.println(System.currentTimeMillis());
-        dataProcessor.getData("oil").forEach(data -> {
-            System.out.println(new Date(data.time()).toString());
-        });
-
     }
 }

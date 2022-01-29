@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/png" href="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>Confirmation</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width"/>
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet" th:href="@{css/bootstrap.min.css}"/>
+    <link href="../static/css/light-bootstrap-dashboard.css?v=1.4.0" rel="stylesheet" th:href="@{css/light-bootstrap-dashboard.css?v=1.4.0}"/>
+    <link href="../static/css/demo.css" rel="stylesheet" th:href="@{css/demo.css}"/>
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" th:href="@{css/font-awesome.css}" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' th:href="@{css/google-roboto-font.css}" rel='stylesheet' type='text/css'>
+    <link href="../static/css/style.css" rel="stylesheet" th:href="@{css/style.css}"/>
+</head>
+
+<body>
+<div class="signinBox">
+
+    <div class="card" style="width:800px; padding: 40px">
+        <div class="header">
+            <h3 class="title text-center" style="margin-bottom:20px; font-weight: bold">Favendo-Actility Auto Configuration</h3>
+            <p>This tool is required to connect ThingPark to Favendo’s API and to configure the Abeeway devices in order to display the tracking results in Favendo’s Asset Tracking Viewer.</p>
+            <p>Please select the right ThingPark platform (“Community” or “TPE EU”), enter your credentials from the ThingPark Enterprise and confirm with the “Connect & configure” button.</p>
+            <p>Your credentials won’t be stored by Favendo and will only be used once for this purpose.</p>
+        </div>
+        <div class="content">
+            <form th:action="@{/authenticate}" method="post" th:object="${user}">
+                <div th:if="${errorMessage}" class="text-center text-danger mb-2 pull-left" th:text="${errorMessage}"></div><br>
+                <div class="form-group">
+                    <label for="platform">ThingPark platform*:</label>
+                    <select id="platform" class="form-control" th:field="*{platform}">
+                        <option value="enterprise">TPE EU</option>
+                        <option value="enterprise">Community</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="email" class="form-control" name="email" placeholder="Email" required="required" autofocus="autofocus" th:field="*{username}">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="Password" name="password" required="required" th:field="*{password}">
+                </div>
+                <button type="submit" class="btn btn-fill pull-right btn-block" style="background-color: #94b512; font-size: 25px; color: black">Connect & Configure</button>
+                <div class="clearfix"></div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- temporary data storage -->
+<span id="timeoutData" th:text="${timeOut}" hidden></span>
+<span id="tokenData" th:text="${token}" hidden></span>
+<span id="devicesUrlData" th:text="${devicesUrl}" hidden></span>
+<span id="arubaAdapterUsername" th:text="${arubaAdapterUsername}" hidden></span>
+<span id="arubaAdapterPassword" th:text="${arubaAdapterPassword}" hidden></span>
+</body>
+
+<!--   Core JS Files   -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="../static/js/script.js" th:src="@{js/script.js}"></script>
+</html>
