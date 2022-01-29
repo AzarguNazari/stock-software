@@ -19,30 +19,31 @@
 <div class="signinBox">
 
     <div class="card" style="width:800px; padding: 40px">
-        <div class="header">
-            <h3 class="title text-center" style="margin-bottom:20px; font-weight: bold">Favendo-Actility Auto Configuration</h3>
-            <p>This tool is required to connect ThingPark to Favendo’s API and to configure the Abeeway devices in order to display the tracking results in Favendo’s Asset Tracking Viewer.</p>
-            <p>Please select the right ThingPark platform (“Community” or “TPE EU”), enter your credentials from the ThingPark Enterprise and confirm with the “Connect & configure” button.</p>
-            <p>Your credentials won’t be stored by Favendo and will only be used once for this purpose.</p>
-        </div>
         <div class="content">
-            <form th:action="@{/authenticate}" method="post" th:object="${user}">
-                <div th:if="${errorMessage}" class="text-center text-danger mb-2 pull-left" th:text="${errorMessage}"></div><br>
-                <div class="form-group">
-                    <label for="platform">ThingPark platform*:</label>
-                    <select id="platform" class="form-control" th:field="*{platform}">
-                        <option value="enterprise">TPE EU</option>
-                        <option value="enterprise">Community</option>
-                    </select>
+            <form th:action="@{/calculate}" method="post" th:object="${data}">
+                <div>
+                    <h1>Buy</h1>
+                    <div class="form-group">
+                        <input type="email" class="form-control" name="number" required="required" autofocus="autofocus" th:field="*{tradeRequest}">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" placeholder="Password" name="number" required="required" th:field="*{buyProfit}">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" placeholder="Password" name="number" required="required" th:field="*{buyLoss}">
+                    </div>
                 </div>
-                <div class="form-group">
-                    <input type="email" class="form-control" name="email" placeholder="Email" required="required" autofocus="autofocus" th:field="*{username}">
+                <div>
+                    <h1>Sell</h1>
+                    <div class="form-group">
+                        <input type="password" class="form-control" placeholder="Password" name="number" required="required" th:field="*{sellProfit}">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" placeholder="Password" name="number" required="required" th:field="*{sellLoss}">
+                    </div>
+                    <button type="submit" class="btn btn-fill pull-right btn-block" style="background-color: #94b512; font-size: 25px; color: black">Connect & Configure</button>
+                    <div class="clearfix"></div>
                 </div>
-                <div class="form-group">
-                    <input type="password" class="form-control" placeholder="Password" name="password" required="required" th:field="*{password}">
-                </div>
-                <button type="submit" class="btn btn-fill pull-right btn-block" style="background-color: #94b512; font-size: 25px; color: black">Connect & Configure</button>
-                <div class="clearfix"></div>
             </form>
         </div>
     </div>
